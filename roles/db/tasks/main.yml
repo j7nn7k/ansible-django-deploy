@@ -1,0 +1,15 @@
+---
+# This playbook contains common plays that will be run on all nodes.
+
+- name: update packages
+  apt: update_cache=yes
+
+
+- name: ensure app server packages are installed
+  apt: pkg={{item}} state=present
+  sudo: yes
+  with_items:
+    - libpq-dev
+    - python-dev
+    - postgresql
+    - postgresql-contrib

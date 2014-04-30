@@ -2,3 +2,4 @@ venv
 .idea
 .DS_Store
 .vagrant
+set_envs.sh
