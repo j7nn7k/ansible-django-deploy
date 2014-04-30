@@ -1,0 +1,27 @@
+#!/bin/bash
+ 
+NAME={{ app_name_verbose }}       	        # Name of the application process
+DJANGODIR={{ app_checkout_path }}
+LOGFILE=/var/log/gunicorn/event.log
+LOGDIR=$(dirname $LOGFILE)
+USER={{ webapp_user }}
+GROUP={{ webapp_user }}
+NUM_WORKERS={{ ansible_processor_cores + 2 }}  # how many worker processes should Gunicorn spawn
+DJANGO_SETTINGS_MODULE={ settings_file }}
+DJANGO_WSGI_MODULE={{ wsgi_file }}
+
+cd $DJANGODIR
+source {{ virtualenv_path }}bin/activate
+export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
+export PYTHONPATH=$DJANGODIR:$PYTHONPATH
+ 
+# Create the log directory if it doesn't exist
+test -d $LOGDIR || mkdir -p $LOGDIR
+ 
+exec gunicorn ${DJANGO_WSGI_MODULE}:application \
+  --name $NAME \
+  --workers $NUM_WORKERS \
+  --user=$USER --group=$GROUP \
+  --log-level=warning \
+  --log-file=$LOGFILE 2>>$LOGFILE  \
+  -p {{ webapps_home }}bin/gunicorn.pid

@@ -1,3 +1,19 @@
 ---
 # Variables listed here are applicable to all host groups
-blank: ""
+
+# app servers - TODO consider using own group vars file
+# FILL IN YOUR CONFIG
+
+webapps_home: /var/www/webapps/
+
+app_name_verbose: my_awesome_application # e.g. my_awesome_application 
+app_name: maa  # e.g. maa 
+app_checkout_path: "{{ webapps_home }}{{ app_name_verbose }}/"
+virtualenv_path: "{{ app_checkout_path }}venv/"
+requirements_file: "{{ app_checkout_path }}{{ app_name }}/requirements/production.txt"
+settings_file: "{{ app_checkout_path }}{{ app_name }}/{{ app_name }}/settings.py"
+wsgi_file: "{{ app_checkout_path }}{{ app_name }}/{{ app_name }}/wsgi.py"
+
+webapp_user: webapp
+
+# db servers

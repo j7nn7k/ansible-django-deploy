@@ -4,7 +4,6 @@
 - name: update packages
   apt: update_cache=yes
 
-
 - name: ensure app server packages are installed
   apt: pkg={{item}} state=present
   sudo: yes
@@ -18,3 +17,28 @@
     - supervisor
     - postgresql-client-common
     - postgresql-client
+
+# ***** user related stuff
+
+- name: add webapp group
+  group: name={{ webapp_user }}
+
+- name: add the webapp user's home dir
+  file: dest={{ webapps_home }} mode=755 state=directory
+
+- name: add limited user for webapps
+  user: name={{ webapp_user }} comment="I run webapps" system=yes group={{ webapp_user }} home={{ webapps_home }}
+
+- name: add the webapp user's home dir
+  file: dest={{ webapps_home }} owner={{ webapp_user }} group={{ webapp_user }}
+
+# ***** other stuff
+
+- name: add run scrips dir
+  file: dest={{ webapps_home }}bin/ mode=755 owner={{ webapp_user }} group={{ webapp_user }} state=directory
+
+- name: add the gunicorn start script
+  template: src=gunicorn_start.sh.j2 dest={{ webapps_home }}bin/gunicorn_start.sh
+
+- name: change gunicorn start script owner
+  file: path={{ webapps_home }}bin/gunicorn_start.sh mode=755 owner={{ webapp_user }} group={{ webapp_user }}
