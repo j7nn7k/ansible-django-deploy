@@ -16,35 +16,36 @@
 - name: checkout latest web app code
   git: repo={{ git_repo }} dest={{ app_checkout_path }} key_file=/home/.ssh/deploy_key accept_hostkey=yes
 
-# - name: check if virtualenv already exists
-#   stat: path={{ virtualenv_path }}
-#   register: venv_dir
+- name: check if virtualenv already exists
+  stat: path={{ virtualenv_path }}
+  register: venv_dir
 
-# - name: create virtualenv for Django web application
-#   shell: virtualenv {{virtualenv_dir}}
-#   when: venv_dir.stat.isdir is not defined
+- name: create virtualenv for Django application
+  shell: virtualenv {{ virtualenv_path }}
+  when: venv_dir.stat.isdir is not defined
 
-# - name: install web application dependencies listed in requirements.txt
-#   pip: requirements={{requirements_file}} virtualenv={{virtualenv_path}}
+- name: install django app dependencies listed in requirements.txt
+  pip: requirements={{ requirements_file }} virtualenv={{ virtualenv_path }}
 
-# - name: Django collectstatic
-#   django_manage: command=collectstatic
-#                  app_path={{ app_checkout_path }}
-#                  virtualenv={{ virtualenv_path }}
-#                  settings={{ settings_file }}
-#   environment: django_env_vars
+- name: Django collectstatic
+  django_manage: >
+    command=collectstatic
+    app_path={{ manage_py_parent_dir }}
+    virtualenv={{ virtualenv_path }}
+    settings={{ settings_module }}
+  environment: django_env_vars
 
 # - name: Django syncdb
 #   django_manage: command=syncdb
-#                  app_path={{ app_checkout_path }}
+#                  app_path={{ manage_py_parent_dir }}
 #                  virtualenv={{ virtualenv_path }}
-#                  settings={{ settings_file }}
+#                  settings={{ settings_module }}
 #   environment: django_env_vars
 #   when: sync_db
 
 # - name: Django migrate
 #   django_manage: command=migrate
-#                  app_path={{ app_checkout_path }}
+#                  app_path={{ manage_py_parent_dir }}
 #                  virtualenv={{ virtualenv_path }}
-#                  settings={{ settings_file }}
+#                  settings={{ settings_module }}
 #   environment: django_env_vars

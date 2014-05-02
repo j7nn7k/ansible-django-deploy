@@ -11,8 +11,10 @@ app_name: maa  # e.g. maa
 app_checkout_path: "{{ webapps_home }}{{ app_name_verbose }}/"
 virtualenv_path: "{{ app_checkout_path }}venv/"
 requirements_file: "{{ app_checkout_path }}{{ app_name }}/requirements/production.txt"
+settings_module: "{{ app_name }}.settings"
 settings_file: "{{ app_checkout_path }}{{ app_name }}/{{ app_name }}/settings.py"
 wsgi_file: "{{ app_checkout_path }}{{ app_name }}/{{ app_name }}/wsgi.py"
+manage_py_parent_dir: "{{ app_checkout_path }}{{ app_name }}/"
 
 django_uploads_path: "{{ app_checkout_path }}{{ app_name }}/media/uploads/"
 django_static_path: "{{ app_checkout_path }}{{ app_name }}/media/static/"
@@ -26,7 +28,7 @@ sub_domain: www
 
 webapp_user: webapp
 
-git_repo: http://YOUR_REPO_URL/
+git_repo: YOUR_REPO.git # ssh path
 
 # all environment variables for your app should be included below so
 # that Django's manage.py command can run properly
@@ -34,7 +36,7 @@ django_env_vars: {
     DEBUG: True,
     DATABASE_URL: '', # ex: postgres://deployer@127.0.0.1:5432/dbname'
     STATIC_URL: '/static/',
-    SECRET_KEY: '',
+    SECRET_KEY: 'sdsdsd',
 }
 
 # db servers
