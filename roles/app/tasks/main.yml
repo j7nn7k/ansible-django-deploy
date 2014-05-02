@@ -32,7 +32,7 @@
 - name: add the webapp user's home dir
   file: dest={{ webapps_home }} owner={{ webapp_user }} group={{ webapp_user }}
 
-# ***** other stuff
+# ***** gunicorn
 
 - name: add run scrips dir
   file: dest={{ webapps_home }}bin/ mode=755 owner={{ webapp_user }} group={{ webapp_user }} state=directory
@@ -42,3 +42,29 @@
 
 - name: change gunicorn start script owner
   file: path={{ webapps_home }}bin/gunicorn_start.sh mode=755 owner={{ webapp_user }} group={{ webapp_user }}
+
+# ***** nginx
+
+- name: upload the nginx config for our site
+  template: src=nginxconf.j2 dest=/etc/nginx/sites-available/{{ sub_domain }}.{{ domain }}
+
+- name: check if nginx has default symbolic linked website file
+  stat: path=/etc/nginx/sites-enabled/default
+  register: nginx_default_file
+
+- name: delete default symbolic linked website on nginx
+  command: rm /etc/nginx/sites-enabled/default
+  sudo: yes
+  when: nginx_default_file.stat.exists
+  notify:
+    - restart nginx
+
+- name: check if we already symlinked our site
+  stat: path=/etc/nginx/sites-enabled/{{ sub_domain }}.{{ domain }}
+  register: nginx_site_available
+
+- name: enable our site
+  command: "ln -s /etc/nginx/sites-available/{{ sub_domain }}.{{ domain }} /etc/nginx/sites-enabled/{{ sub_domain }}.{{ domain }}"
+  when: not nginx_site_available.stat.exists
+  notify:
+    - restart nginx

@@ -14,6 +14,13 @@ requirements_file: "{{ app_checkout_path }}{{ app_name }}/requirements/productio
 settings_file: "{{ app_checkout_path }}{{ app_name }}/{{ app_name }}/settings.py"
 wsgi_file: "{{ app_checkout_path }}{{ app_name }}/{{ app_name }}/wsgi.py"
 
+django_uploads_path: "{{ app_checkout_path }}{{ app_name }}/media/uploads/"
+django_static_path: "{{ app_checkout_path }}{{ app_name }}/media/static/"
+
+# TODO make dynamic later
+domain: example.com 
+sub_domain: www
+
 webapp_user: webapp
 
 # db servers
