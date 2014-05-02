@@ -1,8 +1,8 @@
-# Opinionated Ansible deploy script for Django, Postgres, Nginx and Gunicorn
+# Deploy Django with Ansible
 
-ATTENTION: This is still a work in progress! The script does not do a fulll deploy, yet. But it will soon ;)
+An Opinionated [Ansible](http://ansible.com) deploy script for Django, Postgres, Nginx and Gunicorn I use to deploy some of my django apps.
 
-An [Ansible](http://ansible.com) deploy scrip I use for some of my django apps.
+ATTENTION: This is still a work in progress! The script does not do a full deploy, yet. But it will soon ;)
 
 The configuration is a mix of solutions from different sources that work best for me.
 
