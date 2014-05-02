@@ -13,6 +13,13 @@ Here are the articles I used to develop this deploy script:
 * https://www.digitalocean.com/community/articles/how-to-install-and-configure-django-with-postgres-nginx-and-gunicorn
 * http://www.stavros.io/posts/example-provisioning-and-deployment-ansible/
 
+# Getting Started
+
+* Clone repo
+* Install Ansible (Recommended: Via pip. Create a virtualev and run pip install -r requirements.txt within this repo's root dir)
+* run source venv/bin/activate
+* run vagrant up
+
 # TODO
 * Finish the script
 * Add documentation
