@@ -15,6 +15,7 @@ Here are the articles I used to develop this deploy script:
 
 # Getting Started
 
+* Install Vagrant to test and tweak the script locally (https://www.vagrantup.com/downloads)
 * Clone repo
 * Install Ansible (Recommended: Via pip. Create a virtualev and run pip install -r requirements.txt within this repo's root dir)
 * run source venv/bin/activate
