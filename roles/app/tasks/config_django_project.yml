@@ -7,8 +7,14 @@
 # - name: install known_hosts file to access GitHub
 #   copy: src=ssh_conf/known_hosts dest={{ssh_dir}}/known_hosts
 
-# - name: checkout latest web app code
-#   git: repo={{ git_repo }} dest={{ app_checkout_path }}
+- name: add dir for deploy key
+  file: dest=/home/.ssh/ state=directory
+
+- name: upload deploy key
+  copy: src=deploy_key dest=/home/.ssh/deploy_key
+
+- name: checkout latest web app code
+  git: repo={{ git_repo }} dest={{ app_checkout_path }} key_file=/home/.ssh/deploy_key accept_hostkey=yes
 
 # - name: check if virtualenv already exists
 #   stat: path={{ virtualenv_path }}

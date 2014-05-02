@@ -20,16 +20,13 @@
 
 # ***** user related stuff
 
-- name: add webapp group
-  group: name={{ webapp_user }}
-
 - name: add the webapp user's home dir
   file: dest={{ webapps_home }} mode=755 state=directory
 
 - name: add limited user for webapps
-  user: name={{ webapp_user }} comment="I run webapps" system=yes group={{ webapp_user }} home={{ webapps_home }}
+  user: name={{ webapp_user }} comment="I run webapps" system=yes home={{ webapps_home }}
 
-- name: add the webapp user's home dir
+- name: chown the webapp user's home dir
   file: dest={{ webapps_home }} owner={{ webapp_user }} group={{ webapp_user }}
 
 # ***** gunicorn
@@ -69,6 +66,6 @@
   notify:
     - restart nginx
 
-# ***** supervisor
+# ***** django
 
 - include: config_django_project.yml
