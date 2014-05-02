@@ -1,4 +1,6 @@
 ---
+
+# TODO check if the restart runs properly
 - name: restart nginx
   service: name=nginx state=restarted
   sudo: yes

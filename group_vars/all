@@ -13,6 +13,7 @@ virtualenv_path: "{{ app_checkout_path }}venv/"
 requirements_file: "{{ app_checkout_path }}{{ app_name }}/requirements/production.txt"
 settings_module: "{{ app_name }}.settings"
 settings_file: "{{ app_checkout_path }}{{ app_name }}/{{ app_name }}/settings.py"
+wsgi_module: "{{ app_name }}.wsgi"
 wsgi_file: "{{ app_checkout_path }}{{ app_name }}/{{ app_name }}/wsgi.py"
 manage_py_parent_dir: "{{ app_checkout_path }}{{ app_name }}/"
 

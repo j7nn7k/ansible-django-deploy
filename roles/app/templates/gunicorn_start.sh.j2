@@ -6,10 +6,10 @@ LOGFILE=/var/log/gunicorn/event.log
 LOGDIR=$(dirname $LOGFILE)
 USER={{ webapp_user }}
 GROUP={{ webapp_user }}
-SOCKFILE={{ webapps_home }}bin/gunicorn.sock
+ADDRESS=127.0.0.1:8000
 NUM_WORKERS={{ ansible_processor_cores + 2 }}  # calculate how many worker processes should Gunicorn spawn
-DJANGO_SETTINGS_MODULE={ settings_file }}
-DJANGO_WSGI_MODULE={{ wsgi_file }}
+DJANGO_SETTINGS_MODULE={{ settings_module }}
+DJANGO_WSGI_MODULE={{ wsgi_module}}
 
 cd $DJANGODIR
 source {{ virtualenv_path }}bin/activate
@@ -25,4 +25,4 @@ exec gunicorn ${DJANGO_WSGI_MODULE}:application \
   --user=$USER --group=$GROUP \
   --log-level=warning \
   --log-file=$LOGFILE 2>>$LOGFILE  \
-  --bind=unix:$SOCKFILE
+  -p {{ app_checkout_path }}bin/gunicorn.pid
