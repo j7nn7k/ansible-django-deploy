@@ -68,3 +68,7 @@
   when: not nginx_site_available.stat.exists
   notify:
     - restart nginx
+
+# ***** supervisor
+
+- include: config_django_project.yml

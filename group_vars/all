@@ -17,10 +17,24 @@ wsgi_file: "{{ app_checkout_path }}{{ app_name }}/{{ app_name }}/wsgi.py"
 django_uploads_path: "{{ app_checkout_path }}{{ app_name }}/media/uploads/"
 django_static_path: "{{ app_checkout_path }}{{ app_name }}/media/static/"
 
+# django 1.7 uses migrate instead of syncdb
+sync_db: no
+
 # TODO make dynamic later
 domain: example.com 
 sub_domain: www
 
 webapp_user: webapp
+
+git_repo: http://YOUR_REPO_URL/
+
+# all environment variables for your app should be included below so
+# that Django's manage.py command can run properly
+django_env_vars: {
+    DEBUG: True,
+    DATABASE_URL: '', # ex: postgres://deployer@127.0.0.1:5432/dbname'
+    STATIC_URL: '/static/',
+    SECRET_KEY: '',
+}
 
 # db servers

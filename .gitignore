@@ -3,3 +3,4 @@ venv
 .DS_Store
 .vagrant
 set_envs.sh
+deploy_key
