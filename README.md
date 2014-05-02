@@ -15,15 +15,22 @@ Here are the articles I used to develop this deploy script:
 
 # Getting Started
 
-* Install Vagrant to test and tweak the script locally (https://www.vagrantup.com/downloads)
-* Clone repo
-* Install Ansible (Recommended: Via pip. Create a virtualev and run pip install -r requirements.txt within this repo's root dir)
-* run source venv/bin/activate
-* run vagrant up
+* Install Vagrant (https://www.vagrantup.com/downloads)
+* Clone this repo
+* Install Ansible (Recommended: Via pip. To do that create a virtualev and run `pip install -r requirements.txt` within this repo's root dir)
+* Add an inventory file in the repo's root dir called `hosts`. To test with vagrant paste the following content into the file: 
+
+```
+[vagrant]
+default ansible_ssh_host=127.0.0.1 ansible_ssh_port=2222
+```
+
+* Acivate your virtualenv (run source venv/bin/activate)
+* From within this repo's root dir run vagrant up
 
 # TODO
 * Finish the script
-* Add documentation
+* Add more documentation
 
 # License
 MIT licensed.
