@@ -4,3 +4,4 @@ venv
 .vagrant
 set_envs.sh
 deploy_key
+hosts
