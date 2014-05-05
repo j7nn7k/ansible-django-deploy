@@ -25,7 +25,7 @@ Here are the articles I used to develop this deploy script:
 default ansible_ssh_host=127.0.0.1 ansible_ssh_port=2222
 ```
 
-* Add a deploy ssh key from your repo to let the app pull your code. Add a file called `deploy_key` to the directory `/roles/app/templates/`
+* Add a deploy ssh key from your repo to let the app pull your code. Add a file called `deploy_key` to the directory `/roles/app/files/`
 * Acivate your virtualenv (run `source venv/bin/activate`)
 * From within this repo's root dir run `vagrant up`
 
