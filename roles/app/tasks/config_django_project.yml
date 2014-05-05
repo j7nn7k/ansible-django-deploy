@@ -33,7 +33,7 @@
     app_path={{ manage_py_parent_dir }}
     virtualenv={{ virtualenv_path }}
     settings={{ settings_module }}
-  environment: django_env_vars
+# environment: django_env_vars
 
 # - name: Django syncdb
 #   django_manage: command=syncdb
@@ -43,9 +43,9 @@
 #   environment: django_env_vars
 #   when: sync_db
 
-# - name: Django migrate
-#   django_manage: command=migrate
-#                  app_path={{ manage_py_parent_dir }}
-#                  virtualenv={{ virtualenv_path }}
-#                  settings={{ settings_module }}
-#   environment: django_env_vars
+- name: Django migrate
+  django_manage: >
+    command=migrate
+    app_path={{ manage_py_parent_dir }}
+    virtualenv={{ virtualenv_path }}
+    settings={{ settings_module }}

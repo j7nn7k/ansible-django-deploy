@@ -10,5 +10,33 @@
   with_items:
     - libpq-dev
     - python-dev
-    - postgresql
+    - python-psycopg2
+    - "postgresql-{{ psql_version }}"
     - postgresql-contrib
+
+- name: start postgres and enable at boot
+  service: name=postgresql enabled=yes state=started
+
+- name: ensure database is created
+  sudo: yes
+  sudo_user: postgres
+  postgresql_db: db={{dbname}}
+
+- name: ensure user has access to database
+  sudo: yes
+  sudo_user: postgres
+  postgresql_user: db={{dbname}} user={{dbuser}} password={{dbpassword}} priv=ALL
+
+- name: ensure new user does not have unnecessary privileges
+  sudo: yes
+  sudo_user: postgres
+  postgresql_user: user={{dbuser}} role_attr_flags=NOSUPERUSER
+
+- name: let postgres listen on internal ips
+  sudo: yes
+  lineinfile: >
+    dest=/etc/postgresql/{{ psql_version }}/main/postgresql.conf
+    regexp='^#?listen_addresses\s*='
+    line="listen_addresses = '127.0.0.1, localhost'"
+    state=present
+  notify: restart postgresql
