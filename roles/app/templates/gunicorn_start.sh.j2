@@ -7,22 +7,20 @@ LOGDIR=$(dirname $LOGFILE)
 USER={{ webapp_user }}
 GROUP={{ webapp_user }}
 ADDRESS=127.0.0.1:8000
-NUM_WORKERS={{ ansible_processor_cores + 2 }}  # calculate how many worker processes should Gunicorn spawn
+NUM_WORKERS={{ ansible_processor_cores * 2 + 1 }}  # calculate how many worker processes should Gunicorn spawn
 DJANGO_SETTINGS_MODULE={{ settings_module }}
 DJANGO_WSGI_MODULE={{ wsgi_module}}
 
 cd $DJANGODIR
 source {{ virtualenv_path }}bin/activate
+
+cd {{ app_name }}
 export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
-export PYTHONPATH=$DJANGODIR:$PYTHONPATH
- 
-# Create the log directory if it doesn't exist
-test -d $LOGDIR || mkdir -p $LOGDIR
- 
+# export PYTHONPATH=$DJANGODIR:$PYTHONPATH
 exec gunicorn ${DJANGO_WSGI_MODULE}:application \
   --name $NAME \
   --workers $NUM_WORKERS \
   --user=$USER --group=$GROUP \
   --log-level=warning \
   --log-file=$LOGFILE 2>>$LOGFILE  \
-  -p {{ app_checkout_path }}bin/gunicorn.pid
+  -p {{ webapps_home }}bin/run/gunicorn.pid

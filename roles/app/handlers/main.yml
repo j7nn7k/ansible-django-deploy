@@ -8,3 +8,7 @@
 - name: restart supervisor
   service: name=supervisor state=restarted
   sudo: yes
+
+- name: run gunicorn
+  command: bash {{ webapps_home }}bin/gunicorn_start.sh
+  sudo: yes

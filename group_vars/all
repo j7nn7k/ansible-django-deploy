@@ -27,9 +27,11 @@ sync_db: no
 domain: example.com 
 sub_domain: www
 
+port: 8000
+
 webapp_user: webapp
 
-git_repo: YOUR_REPO.git # ssh path
+git_repo: YOURGIT_REPO.git # ssh path
 
 # all environment variables for your app should be included below so
 # that Django's manage.py command can run properly
@@ -37,7 +39,7 @@ django_env_vars: {
     DEBUG: True,
     DATABASE_URL: '', # ex: postgres://deployer@127.0.0.1:5432/dbname'
     STATIC_URL: '/static/',
-    SECRET_KEY: 'sdsdsd',
+    SECRET_KEY: 'CHANGE_ME',
 }
 
 # db servers
