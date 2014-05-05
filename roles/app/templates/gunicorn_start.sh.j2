@@ -24,3 +24,4 @@ exec gunicorn ${DJANGO_WSGI_MODULE}:application \
   --log-level=warning \
   --log-file=$LOGFILE 2>>$LOGFILE  \
   -p {{ webapps_home }}bin/run/gunicorn.pid
+  -b 127.0.0.1:{{ port }}
