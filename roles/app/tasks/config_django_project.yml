@@ -34,8 +34,6 @@
     virtualenv={{ virtualenv_path }}
     settings={{ settings_module }}
   environment: django_env_vars
-  notify:
-    - run gunicorn
 
 # - name: Django syncdb
 #   django_manage: command=syncdb

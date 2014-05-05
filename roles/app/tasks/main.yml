@@ -69,6 +69,14 @@
   notify:
     - restart nginx
 
+# ***** supervisor
+
+- name: install supervisor configuration file
+  template: >
+    src=supervisor.conf.j2
+    dest=/etc/supervisor/conf.d/{{ app_name_verbose }}.conf
+  notify: restart gunicorn via supervisor
+
 # ***** django
 
 - include: config_django_project.yml
