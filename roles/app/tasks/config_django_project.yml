@@ -13,6 +13,10 @@
 - name: checkout latest web app code
   git: repo={{ git_repo }} dest={{ app_checkout_path }} key_file=/home/.ssh/deploy_key accept_hostkey=yes
 
+- name: delete pyc files in project dir
+  sudo: yes
+  command: find . -name '*.pyc' -delete chdir={{ app_checkout_path }}
+
 - name: check if virtualenv already exists
   stat: path={{ virtualenv_path }}
   register: venv_dir
