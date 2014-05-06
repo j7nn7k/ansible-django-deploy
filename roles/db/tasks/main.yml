@@ -14,6 +14,12 @@
     - "postgresql-{{ psql_version }}"
     - postgresql-contrib
 
+- name: install custom packages
+  apt: pkg={{item}} state=present
+  sudo: yes
+  with_items: custom_db_pkg
+  when: item != ''
+
 - name: start postgres and enable at boot
   service: name=postgresql enabled=yes state=started
 

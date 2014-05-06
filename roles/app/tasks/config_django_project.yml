@@ -4,48 +4,8 @@
 # creates a virtualenv, and collects static assets
 #
 
-- name: add dir for deploy key
-  file: dest=/home/.ssh/ state=directory
+- include: django_setup_prepare.yml
 
-- name: upload deploy key
-  copy: src=deploy_key dest=/home/.ssh/deploy_key
+- include: django_setup_standard.yml
 
-- name: checkout latest web app code
-  git: repo={{ git_repo }} dest={{ app_checkout_path }} key_file=/home/.ssh/deploy_key accept_hostkey=yes
-
-- name: delete pyc files in project dir
-  sudo: yes
-  command: find . -name '*.pyc' -delete chdir={{ app_checkout_path }}
-
-- name: check if virtualenv already exists
-  stat: path={{ virtualenv_path }}
-  register: venv_dir
-
-- name: create virtualenv for Django application
-  shell: virtualenv {{ virtualenv_path }}
-  when: venv_dir.stat.isdir is not defined
-
-- name: install django app dependencies listed in requirements.txt
-  pip: requirements={{ requirements_file }} virtualenv={{ virtualenv_path }}
-
-- name: Django collectstatic
-  django_manage: >
-    command=collectstatic
-    app_path={{ manage_py_parent_dir }}
-    virtualenv={{ virtualenv_path }}
-    settings={{ settings_module }}
-
-- name: Django syncdb
-  django_manage: >
-    command=syncdb
-    app_path={{ manage_py_parent_dir }}
-    virtualenv={{ virtualenv_path }}
-    settings={{ settings_module }}
-  when: sync_db
-
-- name: Django migrate
-  django_manage: >
-    command=migrate
-    app_path={{ manage_py_parent_dir }}
-    virtualenv={{ virtualenv_path }}
-    settings={{ settings_module }}
+- include: django_setup_custom.yml

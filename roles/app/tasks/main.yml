@@ -18,65 +18,18 @@
     - postgresql-client-common
     - postgresql-client
 
-# ***** user related stuff
-
-- name: add the webapp user's home dir
-  file: dest={{ webapps_home }} mode=755 state=directory
-
-- name: add limited user for webapps
-  user: name={{ webapp_user }} comment="I run webapps" system=yes home={{ webapps_home }}
-
-- name: chown the webapp user's home dir
-  file: dest={{ webapps_home }} owner={{ webapp_user }} group={{ webapp_user }}
-
-# ***** gunicorn
-
-- name: add gunicorn log dir
-  file: dest=/var/log/gunicorn/ mode=777 owner={{ webapp_user }} group={{ webapp_user }} state=directory
-
-- name: add run scrips dir
-  file: dest={{ webapps_home }}bin/ mode=755 owner={{ webapp_user }} group={{ webapp_user }} state=directory
-
-- name: add run dir
-  file: dest={{ webapps_home }}bin/run/ mode=777 owner={{ webapp_user }} group={{ webapp_user }} state=directory
-
-- name: add the gunicorn start script
-  template: src=gunicorn_start.sh.j2 dest={{ webapps_home }}bin/gunicorn_start.sh mode=755 owner={{ webapp_user }} group={{ webapp_user }}
-
-# ***** nginx
-
-- name: upload the nginx config for our site
-  template: src=nginxconf.j2 dest=/etc/nginx/sites-available/{{ sub_domain }}.{{ domain }}
-
-- name: check if nginx has default symbolic linked website file
-  stat: path=/etc/nginx/sites-enabled/default
-  register: nginx_default_file
-
-- name: delete default symbolic linked website on nginx
-  command: rm /etc/nginx/sites-enabled/default
+- name: install custom packages
+  apt: pkg={{item}} state=present
   sudo: yes
-  when: nginx_default_file.stat.exists
-  notify:
-    - restart nginx
+  with_items: custom_app_pkg
+  when: item != ''
 
-- name: check if we already symlinked our site
-  stat: path=/etc/nginx/sites-enabled/{{ sub_domain }}.{{ domain }}
-  register: nginx_site_available
+- include: config_user_permissions.yml
 
-- name: enable our site
-  command: "ln -s /etc/nginx/sites-available/{{ sub_domain }}.{{ domain }} /etc/nginx/sites-enabled/{{ sub_domain }}.{{ domain }}"
-  when: not nginx_site_available.stat.exists
-  notify:
-    - restart nginx
+- include: config_gunicorn.yml
 
-# ***** supervisor
+- include: config_nginx.yml
 
-- name: install supervisor configuration file
-  template: >
-    src=supervisor.conf.j2
-    dest=/etc/supervisor/conf.d/{{ app_name_verbose }}.conf
-  notify: restart gunicorn via supervisor
-
-# ***** django
+- include: config_supervisor.yml
 
 - include: config_django_project.yml

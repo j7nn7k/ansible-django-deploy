@@ -1,0 +1,22 @@
+---
+
+- name: add dir for deploy key
+  file: dest=/home/.ssh/ state=directory
+
+- name: upload deploy key
+  copy: src=deploy_key dest=/home/.ssh/deploy_key
+
+- name: checkout latest web app code
+  git: repo={{ git_repo }} dest={{ app_checkout_path }} key_file=/home/.ssh/deploy_key accept_hostkey=yes
+
+- name: delete pyc files in project dir
+  sudo: yes
+  command: find . -name '*.pyc' -delete chdir={{ app_checkout_path }}
+
+- name: check if virtualenv already exists
+  stat: path={{ virtualenv_path }}
+  register: venv_dir
+
+- name: create virtualenv for Django application
+  shell: virtualenv {{ virtualenv_path }}
+  when: venv_dir.stat.isdir is not defined

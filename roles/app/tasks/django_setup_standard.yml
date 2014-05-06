@@ -1,0 +1,26 @@
+---
+
+- name: install django app dependencies listed in requirements.txt
+  pip: requirements={{ requirements_file }} virtualenv={{ virtualenv_path }}
+
+- name: Django collectstatic
+  django_manage: >
+    command=collectstatic
+    app_path={{ manage_py_parent_dir }}
+    virtualenv={{ virtualenv_path }}
+    settings={{ settings_module }}
+
+- name: Django syncdb
+  django_manage: >
+    command=syncdb
+    app_path={{ manage_py_parent_dir }}
+    virtualenv={{ virtualenv_path }}
+    settings={{ settings_module }}
+  when: sync_db
+
+# - name: Django migrate
+#   django_manage: >
+#     command=migrate
+#     app_path={{ manage_py_parent_dir }}
+#     virtualenv={{ virtualenv_path }}
+#     settings={{ settings_module }}

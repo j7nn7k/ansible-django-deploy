@@ -1,8 +1,8 @@
 ---
 # Variables listed here are applicable to all host groups
 
-# app servers - TODO consider using own group vars file
-# FILL IN YOUR CONFIG
+
+# *** app servers - TODO consider using own group vars file
 
 webapps_home: /var/www/webapps/
 
@@ -31,21 +31,25 @@ port: 8000
 
 webapp_user: webapp
 
-git_repo: YOURGIT_REPO.git # ssh path
+git_repo: YOUR_GIT_REPO.git # ssh path
 
-# all environment variables for your app should be included below so
-# that Django's manage.py command can run properly
-django_env_vars: {
-    # DEBUG: True,
-    # DATABASE_URL: '', # ex: postgres://deployer@127.0.0.1:5432/dbname'
-    # STATIC_URL: '/static/',
-    # SECRET_KEY: 'CHANGE_ME',
-}
+# define additional packages like
+# custom_app_pkg:
+#   - pkg1
+#   - pkg2
+custom_app_pkg:
 
-# db servers
+
+# *** db servers
 
 psql_version: "9.3"
 
 dbname: "{{ app_name }}"
 dbuser: "{{ app_name }}_postgres"
 dbpassword: changeme123
+
+# define additional packages like
+# custom_db_pkg:
+#   - pkg1
+#   - pkg2
+custom_db_pkg:
