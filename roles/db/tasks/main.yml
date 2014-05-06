@@ -20,6 +20,11 @@
   with_items: custom_db_pkg
   when: item != ''
 
+- name: add hosts
+  lineinfile: dest=/etc/hosts regexp="^{{item}}" line={{item}} state=present
+  with_items: custom_db_hosts
+  when: item != ''
+
 - name: start postgres and enable at boot
   service: name=postgresql enabled=yes state=started
 

@@ -39,6 +39,12 @@ git_repo: YOUR_GIT_REPO.git # ssh path
 #   - pkg2
 custom_app_pkg:
 
+# define costom hosts for your server
+# e.g.:
+# custom_app_hosts:
+#   - "192.168.111.222 www.example.com"
+# PLEASE USE DOUBLE QUOTES
+custom_app_hosts:
 
 # *** db servers
 
@@ -53,3 +59,10 @@ dbpassword: changeme123
 #   - pkg1
 #   - pkg2
 custom_db_pkg:
+
+# define costom hosts for your server
+# e.g.:
+# custom_db_hosts:
+#   - "192.168.111.222 www.example.com"
+# PLEASE USE DOUBLE QUOTES
+custom_db_hosts:

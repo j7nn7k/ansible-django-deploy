@@ -1,5 +1,10 @@
 ---
 
+- name: add hosts
+  lineinfile: dest=/etc/hosts regexp="^{{item}}" line={{item}} state=present
+  with_items: custom_app_hosts
+  when: item != ''
+
 - name: add dir for deploy key
   file: dest=/home/.ssh/ state=directory
 
