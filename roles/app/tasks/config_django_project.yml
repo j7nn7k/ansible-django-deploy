@@ -4,9 +4,6 @@
 # creates a virtualenv, and collects static assets
 #
 
-# - name: install known_hosts file to access GitHub
-#   copy: src=ssh_conf/known_hosts dest={{ssh_dir}}/known_hosts
-
 - name: add dir for deploy key
   file: dest=/home/.ssh/ state=directory
 
@@ -33,15 +30,14 @@
     app_path={{ manage_py_parent_dir }}
     virtualenv={{ virtualenv_path }}
     settings={{ settings_module }}
-# environment: django_env_vars
 
-# - name: Django syncdb
-#   django_manage: command=syncdb
-#                  app_path={{ manage_py_parent_dir }}
-#                  virtualenv={{ virtualenv_path }}
-#                  settings={{ settings_module }}
-#   environment: django_env_vars
-#   when: sync_db
+- name: Django syncdb
+  django_manage: >
+    command=syncdb
+    app_path={{ manage_py_parent_dir }}
+    virtualenv={{ virtualenv_path }}
+    settings={{ settings_module }}
+  when: sync_db
 
 - name: Django migrate
   django_manage: >
