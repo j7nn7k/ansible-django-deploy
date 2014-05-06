@@ -61,4 +61,16 @@ server {
     location = /500.html {
         root {{ django_static_path }}error-pages/;
     }
+    
+    location ~ /\.ht {
+      deny all;
+    }
+
+    location ~ /\.git {
+      deny all;
+    }
+
+    location ~ /\.svn {
+      deny all;
+    }
 }
