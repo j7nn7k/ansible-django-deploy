@@ -6,8 +6,8 @@
 
 webapps_home: /var/www/webapps/
 
-app_name_verbose: my_awesome_application # e.g. my_awesome_application 
-app_name: maa  # e.g. maa 
+app_name_verbose: memorio # e.g. my_awesome_application 
+app_name: memo  # e.g. maa 
 app_checkout_path: "{{ webapps_home }}{{ app_name_verbose }}/"
 virtualenv_path: "{{ app_checkout_path }}venv/"
 requirements_file: "{{ app_checkout_path }}{{ app_name }}/requirements/production.txt"
@@ -19,6 +19,7 @@ manage_py_parent_dir: "{{ app_checkout_path }}{{ app_name }}/"
 
 django_uploads_path: "{{ app_checkout_path }}{{ app_name }}/media/uploads/"
 django_static_path: "{{ app_checkout_path }}{{ app_name }}/media/static/"
+django_static_collected_path: "{{ app_checkout_path }}{{ app_name }}/media/static-collected/"
 
 # django 1.7 uses migrate instead of syncdb
 sync_db: no
