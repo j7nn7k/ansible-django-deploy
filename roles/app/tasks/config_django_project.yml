@@ -6,6 +6,8 @@
 
 - include: django_setup_prepare.yml
 
+- include: django_setup_custom.yml
+
 - include: django_setup_standard.yml
 
-- include: django_setup_custom.yml
+- include: django_setup_custom_late.yml
