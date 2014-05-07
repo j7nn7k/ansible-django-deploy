@@ -2,17 +2,20 @@
 # This playbook contains common plays that will be run on all nodes.
 
 - name: update packages
+  sudo: yes
   apt: update_cache=yes
 
-- name: ensure app server packages are installed
+- name: ensure db server packages are installed
   apt: pkg={{item}} state=present
   sudo: yes
   with_items:
     - libpq-dev
     - python-dev
     - python-psycopg2
-    - "postgresql-{{ psql_version }}"
+    - postgresql
     - postgresql-contrib
+
+  #TODO find a way to install earlier psql versions via apt-get
 
 - name: install custom packages
   apt: pkg={{item}} state=present
