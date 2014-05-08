@@ -26,10 +26,10 @@
 
 - include: config_user_permissions.yml
 
-- include: config_gunicorn.yml
+- include: config_django_project.yml
 
-- include: config_nginx.yml
+- include: config_gunicorn.yml
 
 - include: config_supervisor.yml
 
-- include: config_django_project.yml
+- include: config_nginx.yml
