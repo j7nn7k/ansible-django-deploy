@@ -9,7 +9,7 @@
   file: dest=/home/.ssh/ state=directory
 
 - name: upload deploy key
-  copy: src=deploy_key dest=/home/.ssh/deploy_key
+  copy: src=deploy_key dest=/home/.ssh/deploy_key mode=600
 
 - name: checkout latest web app code
   git: repo={{ git_repo }} dest={{ app_checkout_path }} key_file=/home/.ssh/deploy_key accept_hostkey=yes
