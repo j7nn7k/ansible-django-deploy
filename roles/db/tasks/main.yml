@@ -1,10 +1,6 @@
 ---
 # This playbook contains common plays that will be run on all nodes.
 
-- name: update packages
-  sudo: yes
-  apt: update_cache=yes
-
 - name: ensure db server packages are installed
   apt: pkg={{item}} state=present
   sudo: yes

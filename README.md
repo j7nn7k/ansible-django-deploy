@@ -2,8 +2,6 @@
 
 An opinionated [Ansible](http://ansible.com) deploy script for Ubuntu, Django, Postgres, Nginx and Gunicorn I use to deploy some of my django apps.
 
-ATTENTION: This is still a work in progress! The script does not do a full deploy, yet. But it will soon ;)
-
 The configuration is a mix of solutions from different sources that work best for me.
 
 Here are the articles I used to develop this deploy script:
@@ -26,11 +24,11 @@ default ansible_ssh_host=127.0.0.1 ansible_ssh_port=2222
 ```
 
 * Add a deploy ssh key from your repo to let the app pull your code. Add a file called `deploy_key` to the directory `/roles/app/files/`
+* tweak the `/group_vars/all.yml` file to comply with your app's setup
 * Acivate your virtualenv (run `source venv/bin/activate`)
 * From within this repo's root dir run `vagrant up`
 
 # TODO
-* Finish the script
 * Add more documentation
 
 # License

@@ -40,7 +40,7 @@ git_repo: YOUR_GIT_REPO.git # ssh path
 #   - pkg2
 custom_app_pkg:
 
-# define costom hosts for your server
+# define costom hosts on the app server
 # e.g.:
 # custom_app_hosts:
 #   - "192.168.111.222 www.example.com"
