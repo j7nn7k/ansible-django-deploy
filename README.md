@@ -13,15 +13,15 @@ Here are the articles I used to develop this deploy script:
 
 # Getting Started
 
-* Install Vagrant (https://www.vagrantup.com/downloads)
+* Install Vagrant (https://www.vagrantup.com/downloads) and VirtualBox (https://www.virtualbox.org/)
 * Clone/download this repo
 * Install Ansible (Recommended: Via pip. To do that create a virtualev and run `pip install -r requirements.txt` within this repo's root dir)
 * Add an inventory file in the repo's root dir called `hosts`. To test with vagrant paste the following content into the file: 
 
-```
-[vagrant]
-default ansible_ssh_host=127.0.0.1 ansible_ssh_port=2222
-```
+
+	[vagrant]
+	default ansible_ssh_host=127.0.0.1 ansible_ssh_port=2222
+
 
 * Add a deploy ssh key from your repo to let the app pull your code. Add a file called `deploy_key` to the directory `/roles/app/files/`
 * tweak the `/group_vars/all.yml` file to comply with your app's setup

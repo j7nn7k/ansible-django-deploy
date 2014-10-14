@@ -3,3 +3,6 @@
 
 - name: update packages
   apt: update_cache=yes
+
+- name: upgrade packages
+  apt: upgrade=dist
