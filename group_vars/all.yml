@@ -6,16 +6,17 @@
 
 webapps_home: /var/www/webapps/
 
-app_name_verbose: my_awesome_application # e.g. my_awesome_application 
-app_name: maa  # e.g. maa 
+app_name_verbose: memorio # e.g. my_awesome_application 
+app_name: memo  # e.g. maa 
 app_checkout_path: "{{ webapps_home }}{{ app_name_verbose }}/"
 virtualenv_path: "{{ app_checkout_path }}venv/"
 requirements_file: "{{ app_checkout_path }}{{ app_name }}/requirements/production.txt"
-settings_module: "{{ app_name }}.settings"
-settings_file: "{{ app_checkout_path }}{{ app_name }}/{{ app_name }}/settings.py"
+settings_module: "{{ app_name }}.settings_prod"
+settings_file: "{{ app_checkout_path }}{{ app_name }}/{{ app_name }}/settings_prod.py"
 wsgi_module: "{{ app_name }}.wsgi"
 wsgi_file: "{{ app_checkout_path }}{{ app_name }}/{{ app_name }}/wsgi.py"
 manage_py_parent_dir: "{{ app_checkout_path }}{{ app_name }}/"
+celery_py_parent_dir: "{{ manage_py_parent_dir }}{{ app_name }}/"
 
 django_uploads_path: "{{ app_checkout_path }}{{ app_name }}/media/uploads/"
 django_static_path: "{{ app_checkout_path }}{{ app_name }}/media/static/"
@@ -25,14 +26,14 @@ django_static_collected_path: "{{ app_checkout_path }}{{ app_name }}/media/stati
 sync_db: no
 
 # TODO make dynamic later
-domain: example.com 
-sub_domain: www
+domain: memorioapp.de 
+sub_domain: app
 
 port: 8000
 
 webapp_user: webapp
 
-git_repo: YOUR_GIT_REPO.git # ssh path
+git_repo: git@bitbucket.org:j7nn7k/memorio.git # ssh path
 
 # define additional packages like
 # custom_app_pkg:
@@ -46,6 +47,8 @@ custom_app_pkg:
 #   - "192.168.111.222 www.example.com"
 # PLEASE USE DOUBLE QUOTES
 custom_app_hosts:
+
+install_celery: no
 
 # *** db servers
 

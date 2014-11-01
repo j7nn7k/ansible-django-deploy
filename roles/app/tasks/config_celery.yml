@@ -1,0 +1,16 @@
+---
+
+- name: add celery log dir
+  file: dest=/var/log/celery/ mode=777 owner={{ webapp_user }} group={{ webapp_user }} state=directory
+
+- name: add run scrips dir
+  file: dest={{ webapps_home }}bin/ mode=755 owner={{ webapp_user }} group={{ webapp_user }} state=directory
+
+- name: add run dir
+  file: dest={{ webapps_home }}bin/run/ mode=777 owner={{ webapp_user }} group={{ webapp_user }} state=directory
+
+- name: add the celery worker start script
+  template: src=celery_worker_start.sh.j2 dest={{ webapps_home }}bin/celery_worker_start.sh mode=755 owner={{ webapp_user }} group={{ webapp_user }}
+
+- name: add the celery beat start script
+  template: src=celery_beat_start.sh.j2 dest={{ webapps_home }}bin/celery_beat_start.sh mode=755 owner={{ webapp_user }} group={{ webapp_user }}

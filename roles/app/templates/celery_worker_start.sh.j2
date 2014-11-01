@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cd {{ manage_py_parent_dir }}
+export DJANGO_SETTINGS_MODULE={{ settings_module }}
+
+exec {{ virtualenv_path }}bin/celery worker -A {{ app_name }} --loglevel=warning --pidfile={{ webapps_home }}bin/run/celery_worker.pid

@@ -28,6 +28,9 @@ Here are the articles I used to develop this deploy script:
 * Acivate your virtualenv (run `source venv/bin/activate`)
 * From within this repo's root dir run `vagrant up`
 
+## Celery (optional)
+I you want to use celery set `install_celery: yes` in `group_vars/all.yml`
+
 # TODO
 * Add more documentation
 
